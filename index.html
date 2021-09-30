@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Image Formats</title>
+  <style>
+    body {
+      font-family: PingFangSC-Light;
+    }
+    .clearfix::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+    canvas {
+      float: left;
+      margin-right: 15px;
+      border: 1px solid #333;
+    }
+    .square-canvas {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="clearfix">
+    <canvas id="canvas1" class="square-canvas" width="200" height="200">
+    </canvas>
+    <script>
+      {
+        const data = [
+          {format: 'PNG', size: '1 KB'},
+          {format: 'JPEG', size: '1 KB'},
+          {format: 'WebP', size: '728 bytes'}
+        ]
+        document.write(data.map(item => {
+          const {format, size} = item
+          return `<p>
+            <button onClick="save(canvas1, '${format.toLowerCase()}')">Save as ${format}
+            </button>
+            Size: ${size}
+          </p>`
+        }).join(''))
+      }
+    </script>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
+</html>

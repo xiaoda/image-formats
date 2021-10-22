@@ -15,36 +15,74 @@
     canvas {
       float: left;
       margin-right: 15px;
-      border: 1px solid #333;
+      border: 1px solid #666;
     }
     .square-canvas {
-      width: 200px;
-      height: 200px;
+      width: 180px;
+      height: 180px;
     }
   </style>
+  <script>
+    function createSquareCanvasBlock (title, id, data) {
+      document.write(`
+        <h3>${title}</h3>
+        <div class="clearfix">
+          <canvas id="canvas${id}" class="square-canvas" width="180" height="180">
+          </canvas>
+          ${data.map(item => {
+            const {format, size} = item
+            return `<p>
+              <button onClick="save(canvas${id}, '${format.toLowerCase()}')">
+                保存为 ${format}
+              </button>
+              体积：${size}
+            </p>`
+          }).join('')}
+        </div>
+      `)
+      document.write()
+    }
+  </script>
 </head>
 <body>
-  <div class="clearfix">
-    <canvas id="canvas1" class="square-canvas" width="200" height="200">
-    </canvas>
-    <script>
-      {
-        const data = [
-          {format: 'PNG', size: '1 KB'},
-          {format: 'JPEG', size: '1 KB'},
-          {format: 'WebP', size: '728 bytes'}
-        ]
-        document.write(data.map(item => {
-          const {format, size} = item
-          return `<p>
-            <button onClick="save(canvas1, '${format.toLowerCase()}')">Save as ${format}
-            </button>
-            Size: ${size}
-          </p>`
-        }).join(''))
-      }
-    </script>
-  </div>
+  <script>
+    {
+      const title = '纯色（180*180 像素）'
+      const data = [
+        {format: 'PNG', size: '935 bytes'},
+        {format: 'JPEG', size: '1,056 bytes'},
+        {format: 'WebP', size: '718 bytes'}
+      ]
+      createSquareCanvasBlock(title, 1, data)
+    }
+    {
+      const title = '随机颜色'
+      const data = [
+        {format: 'PNG', size: '约 110 KB'},
+        {format: 'JPEG', size: '约 30 KB'},
+        {format: 'WebP', size: '约 25 KB'}
+      ]
+      createSquareCanvasBlock(title, 2, data)
+    }
+    {
+      const title = '纯色，随机显示'
+      const data = [
+        {format: 'PNG', size: '约 12 KB'},
+        {format: 'JPEG', size: '约 32 KB'},
+        {format: 'WebP', size: '约 24 KB'}
+      ]
+      createSquareCanvasBlock(title, 3, data)
+    }
+    {
+      const title = '纯色，规律显示'
+      const data = [
+        {format: 'PNG', size: '约 KB'},
+        {format: 'JPEG', size: '约 KB'},
+        {format: 'WebP', size: '约 KB'}
+      ]
+      createSquareCanvasBlock(title, 4, data)
+    }
+  </script>
 
   <script src="./index.js"></script>
 </body>

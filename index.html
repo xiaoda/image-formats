@@ -2,20 +2,23 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Image Formats</title>
+  <title>Image Formats 图像格式</title>
   <style>
     body {
+      width: 800px;
+      margin: 0 auto;
       font-family: PingFangSC-Light;
     }
-    .clearfix::after {
-      display: block;
-      content: '';
-      clear: both;
-    }
-    canvas {
+    canvas, img {
       float: left;
       margin-right: 15px;
       border: 1px solid #666;
+    }
+    .block {margin-bottom: 15px;}
+    .block::after {
+      display: block;
+      content: '';
+      clear: both;
     }
     .square-canvas {
       width: 180px;
@@ -23,20 +26,21 @@
     }
   </style>
   <script>
-    function createSquareCanvasBlock (title, id, data) {
+    function createSquareCanvasBlock (id, data) {
       document.write(`
-        <h3>${title}</h3>
-        <div class="clearfix">
+        <div class="block">
           <canvas id="canvas${id}" class="square-canvas" width="180" height="180">
           </canvas>
           ${data.map(item => {
             const {format, size} = item
-            return `<p>
-              <button onClick="save(canvas${id}, '${format.toLowerCase()}')">
-                保存为 ${format}
-              </button>
-              体积：${size}
-            </p>`
+            return `
+              <p>
+                <button onClick="save(canvas${id}, '${format.toLowerCase()}')">
+                  保存为 ${format}
+                </button>
+                体积：${size}
+              </p>
+            `
           }).join('')}
         </div>
       `)
@@ -45,44 +49,73 @@
   </script>
 </head>
 <body>
+  <h3>纯色（180*180 像素）</h3>
   <script>
     {
-      const title = '纯色（180*180 像素）'
       const data = [
         {format: 'PNG', size: '935 bytes'},
         {format: 'JPEG', size: '1,056 bytes'},
         {format: 'WebP', size: '718 bytes'}
       ]
-      createSquareCanvasBlock(title, 1, data)
+      createSquareCanvasBlock(1, data)
     }
+  </script>
+
+  <h3>随机颜色</h3>
+  <script>
     {
-      const title = '随机颜色'
       const data = [
         {format: 'PNG', size: '约 110 KB'},
         {format: 'JPEG', size: '约 30 KB'},
         {format: 'WebP', size: '约 25 KB'}
       ]
-      createSquareCanvasBlock(title, 2, data)
+      createSquareCanvasBlock(2, data)
     }
+  </script>
+
+  <h3>纯色，随机显示</h3>
+  <script>
     {
-      const title = '纯色，随机显示'
       const data = [
         {format: 'PNG', size: '约 12 KB'},
         {format: 'JPEG', size: '约 32 KB'},
         {format: 'WebP', size: '约 24 KB'}
       ]
-      createSquareCanvasBlock(title, 3, data)
-    }
-    {
-      const title = '纯色，规律显示'
-      const data = [
-        {format: 'PNG', size: '约 KB'},
-        {format: 'JPEG', size: '约 KB'},
-        {format: 'WebP', size: '约 KB'}
-      ]
-      createSquareCanvasBlock(title, 4, data)
+      createSquareCanvasBlock(3, data)
     }
   </script>
+
+  <h3>纯色，规律显示</h3>
+  <div>
+    <script>
+      {
+        const data = [
+          {format: 'PNG', size: '1,076 bytes'},
+          {format: 'JPEG', size: '5 KB'},
+          {format: 'WebP', size: '1,282 bytes'}
+        ]
+        createSquareCanvasBlock(4, data)
+      }
+    </script>
+    <div class="block">
+      <img src="svg/stripe.svg">
+      <a href="svg/stripe.svg" target="_blank">SVG</a> 体积：695 bytes
+    </div>
+  </div>
+
+  <h3>多色，规律显示</h3>
+  <script>
+    {
+      const data = [
+        {format: 'PNG', size: '1,069 bytes'},
+        {format: 'JPEG', size: '5 KB'},
+        {format: 'WebP', size: '1,174 bytes'}
+      ]
+      createSquareCanvasBlock(5, data)
+    }
+  </script>
+
+  <h3>图像缩放</h3>
 
   <script src="./index.js"></script>
 </body>

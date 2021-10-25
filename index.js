@@ -1,7 +1,7 @@
 /**
  * Constants
  */
-const NUMBER_CANVAS = 4
+const NUMBER_CANVAS = 5
 const SIZE_SQUARE_CANVAS = {
   width: 180,
   height: 180
@@ -19,43 +19,77 @@ for (let i = 1; i <= NUMBER_CANVAS; i++) {
  * Initialize Canvas
  */
 initializeSquareCanvas(canvas1, data => {
-  for (let i = 0; i < data.length / 4; i++) {
-    const index = i * 4
-    data[index] = 256
-    data[index + 1] = 102
-    data[index + 2] = 0
-    data[index + 3] = 255
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = 255
+    data[i + 1] = 102
+    data[i + 2] = 0
+    data[i + 3] = 255
   }
 })
 
 initializeSquareCanvas(canvas2, data => {
-  for (let i = 0; i < data.length / 4; i++) {
-    const index = i * 4
-    data[index] = Math.floor(Math.random() * 256)
-    data[index + 1] = Math.floor(Math.random() * 256)
-    data[index + 2] = Math.floor(Math.random() * 256)
-    data[index + 3] = 255
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = Math.floor(Math.random() * 256)
+    data[i + 1] = Math.floor(Math.random() * 256)
+    data[i + 2] = Math.floor(Math.random() * 256)
+    data[i + 3] = 255
   }
 })
 
 initializeSquareCanvas(canvas3, data => {
-  for (let i = 0; i < data.length / 4; i++) {
+  for (let i = 0; i < data.length; i += 4) {
     const isVisible = Math.random() < .5
-    const index = i * 4
     if (isVisible) {
-      data[index] = 256
-      data[index + 1] = 102
-      data[index + 2] = 0
+      data[i] = 255
+      data[i + 1] = 102
+      data[i + 2] = 0
     } else {
-      data[index] = data[index + 1] = data[index + 2] = 255
+      data[i] = data[i + 1] = data[i + 2] = 255
     }
-    data[index + 3] = 255
+    data[i + 3] = 255
   }
 })
 
 initializeSquareCanvas(canvas4, data => {
-  for (let i = 0; i < data.length / 4; i++) {
-    const index = i * 4
+  for (let i = 0; i < data.length; i += 4) {
+    const y = Math.floor(i / 4 / SIZE_SQUARE_CANVAS.width)
+    const isVisible = y % 20 < 10
+    if (isVisible) {
+      data[i] = 255
+      data[i + 1] = 102
+      data[i + 2] = 0
+    } else {
+      data[i] = data[i + 1] = data[i + 2] = 255
+    }
+    data[i + 3] = 255
+  }
+})
+
+initializeSquareCanvas(canvas5, data => {
+  const colors = [
+    [255, 102, 0],
+    [255, 102, 102],
+    [255, 0, 102],
+    [255, 0, 0],
+    [102, 102, 0],
+    [102, 102, 102],
+    [102, 0, 102],
+    [102, 0, 0],
+    [0, 102, 102]
+  ]
+  for (let i = 0; i < data.length; i += 4) {
+    const y = Math.floor(i / 4 / SIZE_SQUARE_CANVAS.width)
+    const isVisible = y % 20 < 10
+    if (isVisible) {
+      const order = Math.floor(y / 20)
+      const color = colors[order]
+      data[i] = color[0]
+      data[i + 1] = color[1]
+      data[i + 2] = color[2]
+    } else {
+      data[i] = data[i + 1] = data[i + 2] = 255
+    }
+    data[i + 3] = 255
   }
 })
 
